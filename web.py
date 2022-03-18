@@ -32,7 +32,6 @@ DB_CONF = {
     'prefix': '',
     'charset': 'utf8'
 }
-SCAN = scanimg(BASE_PATH)
 
 log = get_logger(__name__, 'CRITICAL')
 
@@ -116,6 +115,10 @@ def createImgList(content_path):
 #     def on_any_event(self, event):
 #         return
 
+
+mkdir(os.path.join(BASE_PATH, 'data'))
+mkdir(os.path.join(BASE_PATH, 'contents'))
+SCAN = scanimg(BASE_PATH)
 
 contents = Blueprint('contents', __name__,
                      static_folder=os.path.join(BASE_PATH, 'contents'))
@@ -241,8 +244,7 @@ def webrun():
 if __name__ == '__main__':
     freeze_support()
     # webbrowser.open("http://127.0.0.1:8181")
-    mkdir(os.path.join(BASE_PATH, 'data'))
-    mkdir(os.path.join(BASE_PATH, 'contents'))
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     result = sock.connect_ex(('127.0.0.1', 8181))
     if result == 0:

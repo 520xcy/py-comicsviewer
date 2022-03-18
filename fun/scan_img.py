@@ -26,7 +26,7 @@ class scanimg(object):
         self.CONTENT_HTML = f"{os.sep}detail.html"
 
         self.DATA_PATH = os.path.join(os.getcwd(), 'data', 'xiang')
-
+        
         self.TEMPLETE_HTML = os.path.join(os.getcwd(), 'h', 'detail_templete.html')
 
         self.IMG_SUFFIX = [".jpg", ".png", ".jpeg", ".gif"]
