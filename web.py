@@ -37,6 +37,11 @@ SCAN = scanimg(BASE_PATH)
 log = get_logger(__name__, 'CRITICAL')
 
 
+def mkdir(dir):
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
+
+
 def db_data():
     DB = mysql(DB_CONF)
     log.critical('读取数据库...')
@@ -192,7 +197,6 @@ def delete():
     db = DB.table('files').find(db_id)
     DB.close()
     return jsonify({"msg": f"准备删除:{str(db['path'])}"})
-    
 
 
 @app.route('/confirm_del', methods=['POST'])
@@ -205,6 +209,7 @@ def confirm_del():
     DB.close()
     log.critical('删除数据库...'+str(request.values))
     return jsonify({"msg": "删除成功"})
+
 
 @app.route('/scan', methods=['GET'])
 def scan():
@@ -232,9 +237,12 @@ def webrun():
 #     observer.join()
 #     log.critical('文件夹监控停止')
 
+
 if __name__ == '__main__':
     freeze_support()
     # webbrowser.open("http://127.0.0.1:8181")
+    mkdir(os.path.join(BASE_PATH, 'data'))
+    mkdir(os.path.join(BASE_PATH, 'contents'))
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     result = sock.connect_ex(('127.0.0.1', 8181))
     if result == 0:
@@ -249,12 +257,11 @@ if __name__ == '__main__':
             # result.append(pool.apply_async(watchdog))
 
             pool.close()
-            
+
             pool.join()
-            
+
             for res in result:
                 log.critical(res.get())
             log.critical("Sub-process(es) done.")
         except KeyboardInterrupt:
             pass
-        
