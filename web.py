@@ -23,7 +23,7 @@ ORDER_FIELD = "title"
 BASE_PATH = os.getcwd()
 
 DATA_PATH = os.path.join(BASE_PATH, 'data', 'xiang')
-CONTENT_HTML = "/detail.html"
+CONTENT_HTML = f"{os.sep}detail.html"
 
 IMG_SUFFIX = [".jpg", ".png", ".jpeg", ".gif"]
 DB_CONF = {

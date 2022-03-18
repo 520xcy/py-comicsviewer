@@ -4,8 +4,7 @@
 import os
 import shelve
 import urllib.parse
-import json
-import sys
+import os
 import copy
 import time
 from PIL import Image
@@ -16,6 +15,7 @@ from fun.log import get_logger
 
 log = get_logger(__name__, 'ERROR')
 
+
 class scanimg(object):
     def __init__(self, BASH_PATH):
         self.RUNNING = False
@@ -23,11 +23,11 @@ class scanimg(object):
         self.BASE_PATH = BASH_PATH
         self.CONTENTS_PATH = 'contents'
         self.res = []
-        self.CONTENT_HTML = "/detail.html"
+        self.CONTENT_HTML = f"{os.sep}detail.html"
 
-        self.DATA_PATH = "data/xiang"
+        self.DATA_PATH = os.path.join(os.getcwd(), 'data', 'xiang')
 
-        self.TEMPLETE_HTML = "/h/detail_templete.html"
+        self.TEMPLETE_HTML = os.path.join(os.getcwd(), 'h', 'detail_templete.html')
 
         self.IMG_SUFFIX = [".jpg", ".png", ".jpeg", ".gif"]
         self.DBCONF = {
@@ -96,7 +96,7 @@ class scanimg(object):
         DB = sqlite.mysql(self.DBCONF)
         for data in datas:
             if data['path'] not in self.allPaths:
-                self.res.append({"移除： " : data['path']})
+                self.res.append({"移除： ": data['path']})
                 print("移除： ", data['path'])
                 DB.table('files').where('id='+str(data['id'])).delete()
                 truedatas.remove(data)
@@ -162,7 +162,6 @@ class scanimg(object):
         out.save(outfile)
 
     def gci(self, filepath):
-        
 
         # 遍历filepath下所有文件，包括子目录
         files = os.listdir(filepath)
@@ -273,7 +272,6 @@ class scanimg(object):
         self.output2Html(htmlStr, contentPath + self.CONTENT_HTML)
         return [title, contentPath, imgData[0], count]
 
-
     def run(self):
         self.contentPaths = []
         self.hasDetail = []
@@ -294,8 +292,9 @@ class scanimg(object):
                     self.BASE_TEMP_DEEPTH = contentPath.count('/', 0)
                     data = self.createContentHtml(contentPath)
                     if data is not None:
-                        self.res.append({"新增： " : data})
-                        log.error("新增： " + ','.join('%s' %value for value in data))
+                        self.res.append({"新增： ": data})
+                        log.error("新增： " + ','.join('%s' %
+                                  value for value in data))
                         self.pushData(data)
                     else:
                         self.allPaths.remove(contentPath)
