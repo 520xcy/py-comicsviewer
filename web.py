@@ -13,7 +13,7 @@ from datetime import timedelta
 from fun.log import get_logger
 from fun.mysqlite import mysql
 from fun import re_sort
-from fun.scan_img import scanimg
+from scan_img import scanimg
 # from watchdog.events import FileSystemEventHandler
 # from watchdog.observers import Observer
 from multiprocessing import Process, Pool, RLock, freeze_support
