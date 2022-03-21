@@ -197,17 +197,17 @@ def detail():
 def delete():
     db_id = request.values.get('id')
     DB = mysql(DB_CONF)
-    db = DB.table('files').find(db_id)
+    db = DB.table('files').where('id='+db_id).getarr()
     DB.close()
-    return jsonify({"msg": f"准备删除:{str(db['path'])}"})
+    return jsonify({"msg": f"准备删除:{str(db[0]['path'])}"})
 
 
 @app.route('/confirm_del', methods=['POST'])
 def confirm_del():
     db_id = request.values.get('id')
     DB = mysql(DB_CONF)
-    db = DB.table('files').find(db_id)
-    delete_file_folder(db['path'])
+    db = DB.table('files').where('id='+db_id).getarr()
+    delete_file_folder(db[0]['path'])
     DB.table('files').where('id='+db_id).delete()
     DB.close()
     log.critical('删除数据库...'+str(request.values))
