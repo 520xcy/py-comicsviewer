@@ -45,7 +45,7 @@
             text-align: center;
             font-size: 18px;
             background: #000;
-
+            overflow: hidden;
             /* Center slide text vertically */
             display: -webkit-box;
             display: -ms-flexbox;
@@ -60,7 +60,7 @@
             -webkit-align-items: center;
             align-items: center;
         }
-
+/* 
         .swiper-slide img {
             width: auto;
             height: auto;
@@ -73,7 +73,7 @@
             position: absolute;
             left: 50%;
             top: 50%;
-        }
+        } */
         .swiper .swiper-button-hidden{ opacity : 0; }
         .swiper .swiper-button-next,.swiper .swiper-button-prev{ outline: none}
     </style>
@@ -86,14 +86,14 @@
             {% for v in img_list %}
             <div data-hash="slide{{ loop.index }}" class="swiper-slide">
                 <!-- Required swiper-lazy class and image source specified in data-src attribute -->
-                <img data-src="/{{ v }}" class="swiper-lazy" />
+                <div class="swiper-zoom-container"><img data-src="/{{ v }}" class="swiper-lazy" /></div>
                 <!-- Preloader image -->
                 <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </div>
             {% endfor %}
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        <!-- <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> -->
         <div class="swiper-pagination"></div>
     </div>
 
@@ -103,6 +103,8 @@
     <!-- Initialize Swiper -->
     <script>
         var swiper = new Swiper(".mySwiper", {
+            zoom:true,
+            direction: "vertical",
             keyboard: {
                 enabled: true,
             },
@@ -118,9 +120,9 @@
                 clickable: true,
             },
             navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-                hideOnClick: true,
+                // nextEl: ".swiper-button-next",
+                // prevEl: ".swiper-button-prev",
+                // hideOnClick: true,
             },
         });
     </script>

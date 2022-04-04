@@ -89,7 +89,7 @@
             position: relative;
             padding: 1px 0 0;
             color: #fff;
-            font-size: 12px;
+            font-size: 1em;
             text-align: right
         }
 
@@ -161,7 +161,7 @@
                         $.get("/pagelist", { 'title': title, 'order': order, 'page': page }, function(res) {
                             $.each(res.data, function(index, item) {
 
-                                imghtml = '<li><a href="' + item['url'] + '" target="_blank" title="' + item['title'] + '"><h2>' + item['title'] + '</h2><div class="image"><img class="lazy" lay-src="/' + item['pic'] + '"><table class="data"><tr><th scope="row">枚数</th><td>' + item['count'] + '枚</td></tr><tr><td class="tag" colspan="2"><span>' + item['title'] + '</span></td></tr></table></div></a><p class="date">' + item['created_at'] + '&nbsp;<a class="del" href="javascript:;" data-id="' + item['id'] + '">删</a></p></li>';
+                                imghtml = '<li><a href="javascript:;" data-src="' + item['url'] + '" title="' + item['title'] + '"><h2>' + item['title'] + '</h2><div class="image"><img class="lazy" lay-src="/' + item['pic'] + '"><table class="data"><tr><th scope="row">枚数</th><td>' + item['count'] + '枚</td></tr><tr><td class="tag" colspan="2"><span>' + item['title'] + '</span></td></tr></table></div></a><p class="date">' + item['created_at'] + '&nbsp;<a class="del" href="javascript:;" data-id="' + item['id'] + '">删</a></p></li>';
                                 lis.push(imghtml);
 
 
@@ -172,6 +172,17 @@
                     }
                 });
             }
+
+            $(document).on('dblclick','.file_list a',function(event){
+                const url = $(this).data('src');
+                const a = document.createElement("a");
+                a.href = url;
+                a.style.display = 'none';
+                a.target = '_blank';
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+            });
 
             $(document).on('click', '.del', function(event) {
                 if (confirm('确实要删除吗?')) {
