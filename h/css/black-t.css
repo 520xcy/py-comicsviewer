@@ -284,7 +284,7 @@ header nav {
 }
 
 header nav ul {
-	border: 1px solid#111111;
+	border: 1px solid #111111;
 	overflow: hidden;
 	width: 1000px;
 	margin: 0 auto
@@ -332,7 +332,7 @@ header nav ul li a:hover {
 	100% {
 		border-top: 1px solid #d39329;
 		border-bottom: 0;
-		background: ##DDAE3F
+		background: #DDAE3F
 	}
 }
 
@@ -411,7 +411,7 @@ section>.page_tit,section>h1,section>h2,aside>h2 {
 	font-size: 16px;
 	font-weight: 700;
 	background: #111;
-	border: 1px solid#111111;
+	border: 1px solid #111111;
 	border-radius: 10px;
 	background: -webkit-gradient(linear,left bottom,left top,from(#111111),to(#111111));
 	background: linear-gradient(to top,#111111 0%,#111111 100%);
@@ -450,7 +450,7 @@ section>.page_tit,section>h1,section>h2,aside>h2 {
 }
 
 #main {
-	border: 5px solid#000000;
+	border: 5px solid #000000;
 	border-radius: 15px;
 	background: url(/i/s/hcomic.in/wp-content/themes/boomog/images/foot.png) center top;
 	background-color: #000;
@@ -517,7 +517,7 @@ section>.page_tit,section>h1,section>h2,aside>h2 {
 }
 
 .file_list {
-	border: 1px solid#111111;
+	border: 1px solid #111111;
 	border-radius: 10px;
 	background-color: #111;
 	opacity: .9;
@@ -529,7 +529,8 @@ section>.page_tit,section>h1,section>h2,aside>h2 {
 .file_list>li {
 	float: left;
 	width: 19%;
-	margin-right: 1.25%
+	margin-right: 1.25%;
+	padding: 2% 0;
 }
 
 .file_list>li:nth-child(5n) {
@@ -2429,7 +2430,7 @@ footer .f_tagbox {
 	overflow: hidden;
 	width: 1000px;
 	line-height: 20px;
-	border: 1px solid#111111;
+	border: 1px solid #111111;
 	border-radius: 10px;
 	background-color: #151515;
 	opacity: .9;
@@ -2489,7 +2490,7 @@ footer .f_taglist li:last-child a span {
 }
 
 footer .tag_c {
-	border: 1px solid#111111;
+	border: 1px solid #111111;
 	border-radius: 10px;
 	position: relative;
 	display: block;
@@ -2684,7 +2685,7 @@ footer .f_taglist2 li a span:first-child {
 	font-size: 19px;
 	padding: 5px 12px;
 	text-align: center;
-	-box;box-sizing: border-box;
+	box-sizing: border-box;
 	margin-bottom: 20px
 }
 
@@ -3530,15 +3531,14 @@ section>h2 span {
 section h2 span a {
 	color: #111
 }
-
+@media screen and (max-width: 800px){
+	.file_list>li {
+		width: 48%;
+	}
+}
 @media screen and (max-width: 400px){
 	.file_list>li {
 		width: 98%;
 	}
 }
 
-@media screen and (max-width: 800px){
-	.file_list>li {
-		width: 48%;
-	}
-}
