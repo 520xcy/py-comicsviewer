@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <!--==============手机端适应============-->
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <!--===================================-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--==============强制双核浏览器使用谷歌内核============-->
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="referrer" content="never">
+    <title>{{title}}</title>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/swiper-bundle.min.css') }}" />
+
+    <!-- Demo styles -->
+    <style>
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        body {
+            background: #000;
+            color: #000;
+            overflow: hidden;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .mySwiper2 {
+            height: 75%;
+            width: 100%;
+        }
+
+        .mySwiper {
+            height: 20%;
+            box-sizing: border-box;
+            padding: 10px 0;
+        }
+
+        .mySwiper .swiper-slide {
+            width: 25%;
+            height: 100%;
+            opacity: 0.4;
+        }
+
+        .mySwiper .swiper-slide-thumb-active {
+            opacity: 1;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #search {
+            color: #fff;
+            padding: 1% 2%;
+            height: 4%;
+        }
+
+        #search input {
+            width: 40%;
+        }
+
+        #search select {
+            width: 20%;
+        }
+
+        .date .sort li.date a,
+        .view .sort li.view a,
+        .view_w .sort li.view_w a,
+        .view_m .sort li.view_m a,
+        .download .sort li.download a,
+        .count .sort li.count a,
+        .title .sort li.title a,
+        .sort li.active a,
+        #side .tabbtn li.active a {
+            border: 1px solid #ffc801;
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            background: #ffc801;
+            border-radius: 3px;
+            text-shadow: 0 0 3px rgba(0, 0, 0, .4)
+        }
+
+        a {
+            text-decoration: none;
+            color: unset;
+        }
+
+        .swiper-slide a .image table.data {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 2;
+            width: 100%;
+            color: #fff;
+        }
+
+        .swiper-slide a:hover .image table.data {
+            top: 0;
+            -webkit-animation: data .2s ease-out 0s 1 normal;
+            animation: data .2s ease-out 0s 1 normal
+        }
+
+        .swiper-slide a:hover .image img {
+            opacity: .3;
+            -webkit-animation: image1 .2s ease-out 0s 1 normal;
+            animation: image1 .2s ease-out 0s 1 normal
+        }
+
+        .swiper-slide a:hover .image {
+            border: 1px solid #000;
+            -webkit-animation: file_list .2s ease-out 0s 1 normal;
+            animation: file_list .2s ease-out 0s 1 normal
+        }
+
+        @-webkit-keyframes data {
+            0% {
+                top: 100%
+            }
+
+            100% {
+                top: 0
+            }
+        }
+
+        @keyframes data {
+            0% {
+                top: 100%
+            }
+
+            100% {
+                top: 0
+            }
+        }
+
+        .swiper-slide a .image table.data th,
+        .swiper-slide a .image table.data td {
+            padding: 5px;
+            border-bottom: 1px solid #999
+        }
+
+        .swiper-slide a .image table.data th.tag,
+        .swiper-slide a .image table.data td.tag {
+            padding-bottom: 0;
+            border-bottom: 0;
+            text-align: left
+        }
+
+        .swiper-slide a .image table.data th {
+            width: 2.5em
+        }
+
+        .swiper-slide a .image table.data td.tag span {
+            display: block;
+            margin-bottom: 3px
+        }
+
+        .swiper-slide a .image .date,
+        .swiper-slide a .image .pv,
+        .swiper-slide a .image .dl,
+        .swiper-slide a .image .iine {
+            position: relative;
+            padding: 1px 0 0;
+            color: #fff;
+            font-size: 12px;
+            text-align: right
+        }
+
+        .swiper-slide a .image {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #000;
+            background: #333;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .swiper-slide a h2,
+        .swiper-slide a h3 {
+            position: absolute;
+            top: 0;
+            width: 90%;
+            margin: 0 auto;
+            right: 0;
+            font-size: 0.7em;
+            display: block;
+            overflow: hidden;
+            padding: 3px 5px 2px;
+            color: rgb(255, 255, 255);
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            z-index: 9999;
+            text-shadow: 3px 3px 3px rgb(0 0 0 / 40%);
+        }
+
+        .swiper-slide .date {
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+            z-index: 9999;
+            padding: 1px 0 0;
+            color: rgb(255, 255, 255);
+            font-size: 0.7em;
+            text-align: right;
+            text-shadow: 3px 3px 3px rgb(0 0 0 / 40%);
+        }
+
+        .swiper-slide p .del {
+            font-size: 1.5em
+        }
+    </style>
+</head>
+
+<body>
+    <div id="search">
+        <form method="get">
+            <input id="title" type="text" name="title" value="{{ title }}">
+            <select id="order" name="order">
+                <option value="title">名称</option>
+                <option value="asc">日期正序</option>
+                <option value="desc">日期倒序</option>
+            </select>
+            <button type="submit" id="go">查</button>
+            <button type="button" id="scan">扫</button>
+        </form>
+    </div>
+    <!-- Swiper -->
+
+    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+        <div class="swiper-wrapper">
+            {% for v in res %}
+            <div class="swiper-slide" data-hash="slide{{ loop.index }}">
+                <a href="javascript:;" data-src="{{ v['url'] }}" title="{{ v['title'] }}">
+                    <h2>{{ v['title'] }}</h2>
+                    <div class="image"><img class="swiper-lazy" data-src="/{{ v['pic'] }}" />
+                        <table class="data">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">枚数</th>
+                                    <td>{{ v['count'] }}枚</td>
+                                </tr>
+                                <tr>
+                                    <td class="tag" colspan="2"><span>{{ v['title'] }}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </a>
+                <p class="date">{{ v['created_at'] }}&nbsp;<a class="del" href="javascript:;"
+                        data-id="{{ v['id'] }}">删</a></p>
+
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <div thumbsSlider="" class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            {% for v in res %}
+            <div class="swiper-slide">
+                <img class="swiper-lazy" data-src="/{{ v['pic'] }}" />
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+    <!-- Swiper JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/swiper-bundle.min.js') }}"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+
+        var swiper = new Swiper(".mySwiper", {
+            lazy: {
+                loadPrevNext: true,
+            },
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+                "@0.00": {
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                },
+                "@0.75": {
+                    slidesPerView: 5,
+                    spaceBetween: 20,
+                },
+                "@1.00": {
+                    slidesPerView: 6,
+                    spaceBetween: 40,
+                },
+                "@1.50": {
+                    slidesPerView: 7,
+                    spaceBetween: 50,
+                },
+            },
+        });
+        var swiper2 = new Swiper(".mySwiper2", {
+            spaceBetween: 10,
+            lazy: {
+                loadPrevNext: true,
+            },
+            hashNavigation: {
+                watchState: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: swiper,
+            },
+            breakpoints: {
+                "@0.00": {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                },
+        
+                "@1.00": {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                },
+            },
+        });
+
+    </script>
+    <script>
+
+        $("#order").val('{{ order }}');
+
+        $(document).on('dblclick', '.swiper-slide a', function (event) {
+            const url = $(this).data('src');
+            const a = document.createElement("a");
+            a.href = url;
+            a.style.display = 'none';
+            a.target = '_blank';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        });
+
+        $(document).on('click', '.del', function (event) {
+            if (confirm('确实要删除吗?')) {
+                let that = $(this);
+                let path = that.data('id');
+                $.post('/delete', { "id": path }, function (res) {
+                    if (confirm(res.msg)) {
+                        $.post('/confirm_del', { "id": path }, function (res) {
+                            alert(res.msg);
+                            that.parents('li').remove();
+                        });
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '#scan', function (event) {
+            if (confirm('确实要扫描吗?')) {
+                $.get('/scan', function (res) {
+                    alert(res.msg);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
