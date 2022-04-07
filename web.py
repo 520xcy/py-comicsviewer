@@ -139,7 +139,7 @@ def home():
         order = 'created_at desc'
     else:
         order = 'title asc'
-    title = request.values.get('title') if 'title' in request.values else None
+    title = request.values.get('title') if 'title' in request.values else ''
     where = {}
     if title:
         where['title'] = ['like', f'%{title}%']
