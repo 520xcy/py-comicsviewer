@@ -60,7 +60,8 @@
             -webkit-align-items: center;
             align-items: center;
         }
-/* 
+
+        /* 
         .swiper-slide img {
             width: auto;
             height: auto;
@@ -74,8 +75,30 @@
             left: 50%;
             top: 50%;
         } */
-        .swiper .swiper-button-hidden{ opacity : 0; }
-        .swiper .swiper-button-next,.swiper .swiper-button-prev{ outline: none}
+        .swiper .swiper-button-hidden {
+            opacity: 0;
+        }
+
+        .swiper .swiper-button-next,
+        .swiper .swiper-button-prev {
+            right:0;
+            left: 0;
+            margin: 0 auto;
+            outline: none;
+            transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+        }
+        .swiper .swiper-button-next {
+            top:auto;
+            bottom: 22px;
+        }
+        .swiper .swiper-button-prev{
+            top:22px;
+            bottom: auto;
+        }
     </style>
 </head>
 
@@ -92,8 +115,8 @@
             </div>
             {% endfor %}
         </div>
-        <!-- <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div> -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
     </div>
 
@@ -103,7 +126,7 @@
     <!-- Initialize Swiper -->
     <script>
         var swiper = new Swiper(".mySwiper", {
-            zoom:true,
+            zoom: true,
             direction: "vertical",
             keyboard: {
                 enabled: true,
@@ -120,9 +143,9 @@
                 clickable: true,
             },
             navigation: {
-                // nextEl: ".swiper-button-next",
-                // prevEl: ".swiper-button-prev",
-                // hideOnClick: true,
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+                hideOnClick: true,
             },
         });
     </script>
