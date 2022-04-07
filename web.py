@@ -132,8 +132,41 @@ app.register_blueprint(contents)
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("index.html")
+    _order = request.values.get('order') if 'order' in request.values else 'asc'
+    if _order == 'asc':
+        order = 'created_at asc'
+    elif _order == 'desc':
+        order = 'created_at desc'
+    else:
+        order = 'title asc'
+    title = request.values.get('title') if 'title' in request.values else None
+    where = {}
+    if title:
+        where['title'] = ['like', f'%{title}%']
+    log.critical('读取数据库...'+str(request.values))
 
+    DB = mysql(DB_CONF)
+
+    sql = DB.table('files').field('*')
+    if where:
+        sql = sql.where(where)
+    res = sql.order(order).getarr()
+    DB.close()
+    DB = mysql(DB_CONF)
+    _count = DB.table('files')
+    if where:
+        _count = _count.where(where)
+    DB.close()
+    _res = []
+    for data in res:
+        data['url'] = url_for('detail', path=urllib.parse.quote(data['path']))
+        data['pic'] = data['path']+"/"+data['pic']
+        _res.append(data)
+    return render_template("indexAll.html", res = _res, title = title, order = _order)
+
+@app.route('/page', methods=['GET'])
+def pagehome():
+    return render_template("index.html")
 
 @app.route('/pagelist', methods=['GET'])
 def pagelist():
