@@ -140,6 +140,8 @@ def home():
     else:
         order = 'title asc'
     title = request.values.get('title') if 'title' in request.values else ''
+    limit = int(request.values.get(
+        'limit')) if request.values.get('limit') else 20
     where = {}
     if title:
         where['title'] = ['like', f'%{title}%']
@@ -150,7 +152,7 @@ def home():
     sql = DB.table('files').field('*')
     if where:
         sql = sql.where(where)
-    res = sql.order(order).getarr()
+    res = sql.order(order).limit(0, limit).order(order).getarr()
     DB.close()
     DB = mysql(DB_CONF)
     _count = DB.table('files')
@@ -162,7 +164,7 @@ def home():
         data['url'] = url_for('detail', path=urllib.parse.quote(data['path']))
         data['pic'] = data['path']+"/"+data['pic']
         _res.append(data)
-    return render_template("indexAll.html", res = _res, title = title, order = _order)
+    return render_template("indexAll.html", res = _res, title = title, order = _order, limit = limit)
 
 @app.route('/page', methods=['GET'])
 def pagehome():
