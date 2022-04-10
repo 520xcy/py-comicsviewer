@@ -311,7 +311,7 @@
 
                 </a>
                 <p class="date">{{ v['created_at'] }}&nbsp;<a class="del" href="javascript:;"
-                        data-id="{{ v['id'] }}" data-index="{{ loop.index - 1 }}">删</a></p>
+                        data-id="{{ v['id'] }}">删</a></p>
 
                 <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </div>
@@ -412,7 +412,7 @@
             if (confirm('确实要删除吗?')) {
                 let that = $(this);
                 let path = that.data('id');
-                let index = that.data("index");
+                let index = swiper2.realIndex
                 $.post('/delete', { "id": path }, function (res) {
                     if (confirm(res.msg)) {
                         $.post('/confirm_del', { "id": path }, function (res) {
