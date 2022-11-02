@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-# python 3.7.0
 
 from crypt import methods
 import os
 import socket
 import urllib.parse
 import math
-import time
 from waitress import serve
 from flask import Flask, render_template, request, url_for, jsonify, abort, Blueprint
 from datetime import timedelta
@@ -14,8 +12,6 @@ from fun.log import get_logger
 from fun.mysqlite import mysql
 from fun import re_sort
 from scan_img import scanimg
-# from watchdog.events import FileSystemEventHandler
-# from watchdog.observers import Observer
 from multiprocessing import Process, Pool, RLock, freeze_support
 
 ORDER_FIELD = "title"
@@ -259,12 +255,6 @@ def scan():
     except Exception as e:
         return jsonify({"msg": str(e)})
 
-
-def webrun():
-    log.critical('web启动成功')
-    serve(app, host='0.0.0.0', port=8181)
-    log.critical('web停止')
-
 # def watchdog():
 #     event_handler = FileMonitorHandler()
 #     observer = Observer()
@@ -278,27 +268,15 @@ def webrun():
 
 if __name__ == '__main__':
     freeze_support()
-    # webbrowser.open("http://127.0.0.1:8181")
-
+    port  = int(os.getenv('web_port',18181))
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    result = sock.connect_ex(('127.0.0.1', 8181))
+    result = sock.connect_ex(('127.0.0.1', port))
     if result == 0:
-        log.error('socket端口被占用')
+        print('socket端口被占用')
     else:
         try:
-            pool = Pool(processes=2)
-
-            result = []
-
-            result.append(pool.apply_async(webrun))
-            # result.append(pool.apply_async(watchdog))
-
-            pool.close()
-
-            pool.join()
-
-            for res in result:
-                log.critical(res.get())
-            log.critical("Sub-process(es) done.")
+            log.critical(f'web启动成功 http://0.0.0.0:{port}')
+            serve(app, host='0.0.0.0', port=port)
+            log.critical('web停止')
         except KeyboardInterrupt:
             pass

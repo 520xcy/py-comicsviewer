@@ -6,10 +6,18 @@ ComicsViewer是一个基于php+sqlite的图片阅读器，旨在将本地的漫�
 
 ### Step1
 
-将漫画文件夹放在contents目录下，即```contents/C(94).../xxxx.jpg```
-注意，如```contents/favorite/C(94).../xxxx.jpg```等多级目录也会被解析
+将漫画文件夹放在contents目录下，即 ``contents/C(94).../xxxx.jpg``
+注意，如 ``contents/favorite/C(94).../xxxx.jpg``等多级目录也会被解析
 
 ### Step2
 
-当前目录运行```python web.py```或是Windows用户双击run.bat
-```python web.py```
+当前目录运行 ``python web.py``或是Windows用户双击run.bat
+``python web.py``
+
+## Docker
+
+docker pull 520xcy/**comicsviewer**:latest
+
+映射 `18181`端口
+
+映射漫画文件夹至 `/manhua/contents`

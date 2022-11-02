@@ -8,3 +8,4 @@ contents/*
 indexstatic.php
 ._*
 logs/*
+.venv
