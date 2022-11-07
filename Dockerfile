@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy-version-3e5beed9
 
 WORKDIR /manhua
 
