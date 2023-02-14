@@ -1,16 +1,17 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy-version-3e5beed9
+FROM ghcr.io/linuxserver/baseimage-alpine:3.17
 
-WORKDIR /manhua
+WORKDIR /
 
-COPY . .
+RUN apk update && \
+apk add --no-cache python3 zlib-dev && \
+python3 -m ensurepip && \
+pip3 install click Flask importlib-metadata itsdangerous Jinja2 MarkupSafe Pillow PyMySQL waitress Werkzeug zipp && \
+apk del --purge zlib-dev && \
+rm -rf /root/.cache /tmp/*
 
-RUN apt update && \
-apt -y install python3 python3-pip zlib1g-dev && \
-python3 -m pip install -r requirements.txt && \
-apt --purge -y remove python3-pip zlib1g-dev && \
-apt --purge -y autoremove && \
-apt clean
+COPY root/ /
 
 EXPOSE 18181
 
-CMD [ "python3", "./web.py" ]
+VOLUME /py-comicsviewer/contents
+VOLUME /py-comicsviewer/data

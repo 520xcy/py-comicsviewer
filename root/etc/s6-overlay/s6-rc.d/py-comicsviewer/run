@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+
+cd /py-comicsviewer
+exec python3 web.py

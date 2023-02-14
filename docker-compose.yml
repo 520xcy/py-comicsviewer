@@ -1,0 +1,15 @@
+version: "3.7"
+volumes:
+  data:
+services:
+  manhua:
+    image: 520xcy/comicsviewer:alpine
+    container_name: manhua
+    environment:
+      - PUID=1000
+      - GUID=1000
+    volumes:
+      - 漫画目录:/py-comicsviewer/contents
+      - data:/py-comicsviewer/data
+    ports:
+      - 8181:18181
