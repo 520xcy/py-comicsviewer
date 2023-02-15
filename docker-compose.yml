@@ -9,7 +9,7 @@ services:
       - PUID=1000
       - GUID=1000
     volumes:
-      - 漫画目录:/py-comicsviewer/contents
-      - data:/py-comicsviewer/data
+      - 漫画目录:/workdir/contents
+      - data:/workdir/data
     ports:
       - 8181:18181
