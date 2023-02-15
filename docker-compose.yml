@@ -3,7 +3,7 @@ volumes:
   data:
 services:
   manhua:
-    image: 520xcy/comicsviewer:alpine
+    image: 520xcy/comicsviewer:latest
     container_name: manhua
     environment:
       - PUID=1000
