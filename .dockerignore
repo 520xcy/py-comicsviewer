@@ -1,5 +1,5 @@
 .git*
-root/py-comicsviewer/data/*
-root/py-comicsviewer/logs/*
-root/py-comicsviewer/contents/*
-root/py-comicsviewer/.venv
+py-comicsviewer/data/*
+py-comicsviewer/logs/*
+py-comicsviewer/contents/*
+py-comicsviewer/.venv
