@@ -7,7 +7,7 @@ services:
     container_name: manhua
     environment:
       - PUID=1000
-      - GUID=1000
+      - PGID=1000
     volumes:
       - 漫画目录:/workdir/contents
       - data:/workdir/data
