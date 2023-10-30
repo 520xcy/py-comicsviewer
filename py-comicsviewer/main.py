@@ -234,7 +234,7 @@ def dirlist(path=''):
                         'path':path,
                         'preview':'h/img/404.png',
                         'title': os.path.basename(folder_path),
-                        'modified': int(os.path.getmtime(folder_path)),
+                        'modified': int(os.path.getctime(folder_path)),
                         'size': 0,
                         'is_dir': True,
                         'count':0
@@ -256,7 +256,7 @@ def dirlist(path=''):
                     'path':os.path.join(path,fi),
                     'preview':os.path.join('list',path,fi).replace(os.sep,'/'),
                     'title': fi,
-                    'modified': int(os.path.getmtime(realpath)),
+                    'modified': int(os.path.getctime(realpath)),
                     'size': 0,
                     'is_dir': False,
                     'count':0
