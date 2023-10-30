@@ -9,8 +9,7 @@ import json
 from flask import Flask, render_template, request, url_for, jsonify, abort, Blueprint,send_file
 from datetime import timedelta
 from fun.log import get_logger
-from fun.mysqlite import mysql
-from fun import re_sort
+# from fun.mysqlite import mysql
 from scan_img import scanimg
 from preview import imageResize
 from multiprocessing import Process, Pool, RLock, freeze_support
@@ -362,8 +361,7 @@ if __name__ == '__main__':
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     result1 = sock.connect_ex(('127.0.0.1', port))
     result2 = sock.connect_ex(('127.0.0.1', port+1))
-    startServer1(port)
-    exit()
+
     if result1 == 0:
         print('漫画端口被占用')
     elif result2 == 0:
