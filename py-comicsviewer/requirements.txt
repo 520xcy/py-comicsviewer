@@ -9,3 +9,4 @@ PyMySQL
 waitress
 Werkzeug
 zipp
+flask_autoindex

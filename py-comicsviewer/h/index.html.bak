@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!--==============手机端适应============-->
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <!--===================================-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--==============强制双核浏览器使用谷歌内核============-->
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="referrer" content="never">
+    <title>ComicViewer v1.0.0-SNAPSHOT</title>
+    <link rel="icon" href="/img/favicon.ico">
+    <link href="{{ url_for('static', filename = 'css/black-t.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'layui/layui.js') }}"></script>
+    <style>
+        a {
+            color: #fff;
+            text-decoration: none;
+            outline: 0
+        }
+
+        .index-nav {
+            display: none;
+            position: fixed;
+            width: 60px;
+            z-index: 10010;
+            text-align: center;
+            background: #111111;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+        }
+
+        .name {
+            color: #fff;
+        }
+
+
+        .index-nav .pointer-block {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            transition: .1s all linear;
+            display: none;
+        }
+
+
+        .index-nav.customizing .tip {
+            top: 0;
+            opacity: 1;
+        }
+
+        .index-nav .nav-list {
+            position: relative;
+            z-index: 233;
+            width: 60px;
+        }
+
+        .index-nav .n-i {
+            border-bottom: 1px solid #414141;
+            cursor: pointer;
+        }
+
+
+
+        .index-nav .n-i .name {
+            line-height: 30px;
+            width: 60px;
+            font-size: 12px;
+            text-align: center;
+            height: 30px;
+            transition: .1s background linear;
+        }
+
+        .file_list li .date {
+            position: relative;
+            padding: 1px 0 0;
+            color: #fff;
+            font-size: 1em;
+            text-align: right
+        }
+
+        #search {
+            color: #fff;
+            padding: 1% 2%;
+        }
+
+        #search input {
+            width: 40%;
+        }
+
+        #search select {
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body class="page page-id-15 page-template page-template-list_tag-php">
+    <div id="search">
+        <form method="get">
+            <label for="title">搜索</label>
+            <input id="title" type="text" name="title" value="">
+            <select id="order" name="order">
+                <option value="title">名称</option>
+                <option value="asc">日期正序</option>
+                <option value="desc">日期倒序</option>
+            </select>
+            <button type="button" id="go">查</button>
+            <button type="button" id="scan">扫</button>
+        </form>
+    </div>
+    <div id="container">
+        <div id="contents">
+            <section class="leftbox l1">
+
+                <ul class="file_list">
+
+
+                </ul>
+            </section>
+        </div>
+    </div>
+    <footer>
+        <div class="box">
+            <p id="copyright">
+                <span class="copyright">
+                    <a href="https://github.com/520xcy/py-comicsviewer" target="_blank">See at Github</a>
+                </span>
+        </div>
+    </footer>
+
+    <script>
+        layui.use(['element', 'laypage', 'laydate', 'layer', 'util', 'flow'], function() {
+            var flow = layui.flow,
+                $ = layui.$;
+
+            var title, order;
+            getFlow();
+
+            function getFlow() {
+                $('.file_list').html('');
+                var flowhtml = flow.load({
+                    elem: '.file_list',
+                    isAuto: true,
+                    isLazyimg: true,
+                    done: function(page, next) {
+                        var lis = [];
+                        $.get("/pagelist", { 'title': title, 'order': order, 'page': page }, function(res) {
+                            $.each(res.data, function(index, item) {
+
+                                imghtml = '<li><a href="javascript:;" data-src="' + item['url'] + '" title="' + item['title'] + '"><h2>' + item['title'] + '</h2><div class="image"><img class="lazy" lay-src="/' + item['pic'] + '"><table class="data"><tr><th scope="row">枚数</th><td>' + item['count'] + '枚</td></tr><tr><td class="tag" colspan="2"><span>' + item['title'] + '</span></td></tr></table></div></a><p class="date">' + item['created_at'] + '&nbsp;<a class="del" href="javascript:;" data-id="' + item['id'] + '">删</a></p></li>';
+                                lis.push(imghtml);
+
+
+                            });
+                            next(lis.join(''), page < res.last_page);
+
+                        });
+                    }
+                });
+            }
+
+            $(document).on('dblclick','.file_list a',function(event){
+                const url = $(this).data('src');
+                const a = document.createElement("a");
+                a.href = url;
+                a.style.display = 'none';
+                a.target = '_blank';
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+            });
+
+            $(document).on('click', '.del', function(event) {
+                if (confirm('确实要删除吗?')) {
+                    let that = $(this);
+                    let path = that.data('id');
+                    $.post('/delete', {"id":path}, function(res) {
+                        if(confirm(res.msg)){
+                            $.post('/confirm_del', {"id":path}, function(res) {
+                                alert(res.msg);
+                                that.parents('li').remove();
+                            });
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '#scan', function(event) {
+                if (confirm('确实要扫描吗?')) {
+                    $.get('/scan', function(res) {
+                        alert(res.msg);
+                    });
+                }
+            });
+
+            $(document).on('click', '#go', function() {
+                title = $('#title').val();
+                order = $('#order').val();
+                getFlow();
+            });
+        });
+    </script>
+</body>
+
+</html>

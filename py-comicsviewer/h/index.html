@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 
 <head>
     <meta charset="UTF-8">
@@ -14,206 +13,451 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="format-detection" content="telephone=no">
     <meta name="referrer" content="never">
-    <title>ComicViewer v1.0.0-SNAPSHOT</title>
-    <link rel="icon" href="/img/favicon.ico">
-    <link href="{{ url_for('static', filename = 'css/black-t.css') }}" rel="stylesheet">
-    <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'layui/layui.js') }}"></script>
+    <title>Comicsviewer</title>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'h/css/swiper-bundle.min.css') }}" />
+
+    <!-- Demo styles -->
     <style>
-        a {
-            color: #fff;
-            text-decoration: none;
-            outline: 0
+        html,
+        body {
+            position: relative;
+            height: 100%;
         }
 
-        .index-nav {
-            display: none;
-            position: fixed;
-            width: 60px;
-            z-index: 10010;
+        body {
+            background: #000;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
             text-align: center;
-            background: #111111;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+            font-size: 18px;
 
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
         }
 
-        .name {
-            color: #fff;
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: scale-down;
         }
 
 
-        .index-nav .pointer-block {
-            position: absolute;
-            width: 60px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: -1;
-            transition: .1s all linear;
-            display: none;
+
+        .swiper {
+            width: 100%;
+            height: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+        }
 
-        .index-nav.customizing .tip {
-            top: 0;
+        .mySwiper2 {
+            height: 75%;
+            width: 100%;
+        }
+
+        .mySwiper {
+            height: 20%;
+            box-sizing: border-box;
+            padding: 10px 0;
+        }
+
+        .mySwiper .swiper-slide {
+            width: 25%;
+            height: 100%;
+            opacity: 0.4;
+        }
+
+        .mySwiper .swiper-slide-thumb-active {
             opacity: 1;
-        }
-
-        .index-nav .nav-list {
-            position: relative;
-            z-index: 233;
-            width: 60px;
-        }
-
-        .index-nav .n-i {
-            border-bottom: 1px solid #414141;
-            cursor: pointer;
-        }
-
-
-
-        .index-nav .n-i .name {
-            line-height: 30px;
-            width: 60px;
-            font-size: 12px;
-            text-align: center;
-            height: 30px;
-            transition: .1s background linear;
-        }
-
-        .file_list li .date {
-            position: relative;
-            padding: 1px 0 0;
-            color: #fff;
-            font-size: 1em;
-            text-align: right
         }
 
         #search {
             color: #fff;
             padding: 1% 2%;
+            height: 4%;
         }
 
-        #search input {
-            width: 40%;
-        }
-
-        #search select {
+        #order {
             width: 20%;
+        }
+
+        #title {
+            width: 20%;
+        }
+
+        #limit {
+            width: 10%;
+        }
+
+        .date .sort li.date a,
+        .view .sort li.view a,
+        .view_w .sort li.view_w a,
+        .view_m .sort li.view_m a,
+        .download .sort li.download a,
+        .count .sort li.count a,
+        .title .sort li.title a,
+        .sort li.active a,
+        #side .tabbtn li.active a {
+            border: 1px solid #ffc801;
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            background: #ffc801;
+            border-radius: 3px;
+            text-shadow: 0 0 3px rgba(0, 0, 0, .4)
+        }
+
+        a {
+            text-decoration: none;
+            color: unset;
+        }
+
+        .swiper-slide a .image table.data {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 2;
+            width: 100%;
+            color: #fff;
+        }
+
+        .swiper-slide a:hover .image table.data {
+            top: 0;
+            -webkit-animation: data .2s ease-out 0s 1 normal;
+            animation: data .2s ease-out 0s 1 normal
+        }
+
+        .swiper-slide a:hover .image img {
+            opacity: .3;
+            -webkit-animation: image1 .2s ease-out 0s 1 normal;
+            animation: image1 .2s ease-out 0s 1 normal
+        }
+
+        .swiper-slide a:hover .image {
+            border: 1px solid #000;
+            -webkit-animation: file_list .2s ease-out 0s 1 normal;
+            animation: file_list .2s ease-out 0s 1 normal
+        }
+
+        @-webkit-keyframes data {
+            0% {
+                top: 100%
+            }
+
+            100% {
+                top: 0
+            }
+        }
+
+        @keyframes data {
+            0% {
+                top: 100%
+            }
+
+            100% {
+                top: 0
+            }
+        }
+
+        .swiper-slide a .image table.data th,
+        .swiper-slide a .image table.data td {
+            padding: 5px;
+            border-bottom: 1px solid #999
+        }
+
+        .swiper-slide a .image table.data th.tag,
+        .swiper-slide a .image table.data td.tag {
+            padding-bottom: 0;
+            border-bottom: 0;
+            text-align: left
+        }
+
+        .swiper-slide a .image table.data th {
+            width: 2.5em
+        }
+
+        .swiper-slide a .image table.data td.tag span {
+            display: block;
+            margin-bottom: 3px
+        }
+
+        .swiper-slide a .image .date,
+        .swiper-slide a .image .pv,
+        .swiper-slide a .image .dl,
+        .swiper-slide a .image .iine {
+            position: relative;
+            padding: 1px 0 0;
+            color: #fff;
+            font-size: 12px;
+            text-align: right
+        }
+
+        .swiper-slide a .image {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            display: block;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #000;
+            background: #333;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .swiper-slide a h2,
+        .swiper-slide a h3 {
+            position: absolute;
+            top: 0;
+            width: 90%;
+            margin: 0 auto;
+            right: 0;
+            font-size: 0.7em;
+            display: block;
+            overflow: hidden;
+            padding: 3px 5px 2px;
+            color: rgb(255, 255, 255);
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            z-index: 9999;
+            text-shadow: 3px 3px 3px rgb(0 0 0 / 40%);
+        }
+
+        .swiper-slide .date {
+            position: absolute;
+            bottom: 0;
+            right: 10px;
+            z-index: 9999;
+            padding: 1px 0 0;
+            color: rgb(255, 255, 255);
+            font-size: 0.7em;
+            text-align: right;
+            text-shadow: 3px 3px 3px rgb(0 0 0 / 40%);
+        }
+
+        .swiper-slide p .del {
+            font-size: 1.5em
         }
     </style>
 </head>
 
-<body class="page page-id-15 page-template page-template-list_tag-php">
+<body>
     <div id="search">
+
         <form method="get">
-            <label for="title">搜索</label>
-            <input id="title" type="text" name="title" value="">
+
+            <select id="page" name="page">
+            </select>
+            <select id="limit" name="limit">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+
+
+            <input id="title" type="text" name="title" placeholder="搜索标题" value="{{ title or '' }}">
             <select id="order" name="order">
                 <option value="title">名称</option>
                 <option value="asc">日期正序</option>
                 <option value="desc">日期倒序</option>
             </select>
-            <button type="button" id="go">查</button>
-            <button type="button" id="scan">扫</button>
+            <button type="submit" id="go">查</button>
+            <!-- <button type="button" id="scan">扫</button> -->
         </form>
+        {{ total }}{% for v in nav %}
+        <a href="{{ v['href'] }}">{{ v['text'] }}</a>
+        {% endfor %}
+
+
     </div>
-    <div id="container">
-        <div id="contents">
-            <section class="leftbox l1">
+    <!-- Swiper -->
 
-                <ul class="file_list">
+    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+        <div class="swiper-wrapper">
 
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div thumbsSlider="" class="swiper mySwiper">
+        <div class="swiper-wrapper">
 
-                </ul>
-            </section>
         </div>
     </div>
-    <footer>
-        <div class="box">
-            <p id="copyright">
-                <span class="copyright">
-                    <a href="https://github.com/520xcy/py-comicsviewer" target="_blank">See at Github</a>
-                </span>
-        </div>
-    </footer>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'h/js/jquery.min.js') }}"></script>
+    <!-- Swiper JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename = 'h/js/swiper-bundle.min.js') }}"></script>
 
+    <!-- Initialize Swiper -->
     <script>
-        layui.use(['element', 'laypage', 'laydate', 'layer', 'util', 'flow'], function() {
-            var flow = layui.flow,
-                $ = layui.$;
+        const res = {{ res| safe }};
+        const limit = {{ limit }};
+        const total = {{ total }};
+        const page = {{ page }};
+        const order = '{{ order }}';
+        var swiper = new Swiper(".mySwiper", {
+            virtual: {
+                slides: (function () {
+                    var slides = [];
+                    for (let index = 0; index < res.length; index++) {
+                        const element = `<img loading="lazy" src="/${res[index]['preview']}" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>`
+                        slides.push(element)
+                    }
+                    return slides;
+                }())
+            },
+            lazy: {
+                loadPrevNext: true,
+            },
+            spaceBetween: 10,
+            slidesPerView: 4,
+            freeMode: true,
+            watchSlidesProgress: true,
+            breakpoints: {
+                "@0.00": {
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                },
+                "@0.75": {
+                    slidesPerView: 5,
+                    spaceBetween: 20,
+                },
+                "@1.00": {
+                    slidesPerView: 6,
+                    spaceBetween: 40,
+                },
+                "@1.50": {
+                    slidesPerView: 7,
+                    spaceBetween: 50,
+                },
+            },
+        });
+        var swiper2 = new Swiper(".mySwiper2", {
+            virtual: {
+                slides: (function () {
+                    var slides = [];
+                    for (let index = 0; index < res.length; index++) {
+                        const element = `<a href="javascript:;" data-src="/${res[index]['url']}" title="${res[index]['title']}"> <h2>${res[index]['title']}</h2> <div class="image"> <img loading="lazy" src="/${res[index]['preview']}" /> <table class="data"> <tbody> <tr> <th scope="row">枚数</th><td>${res[index]['count']}枚</td></tr> <tr> <td class="tag" colspan="2"><span>${res[index]['title']}</span></td> </tr> </tbody> </table> </div> </a> <p class="date">${formatDateTime(res[index]['modified'])}&nbsp;<a class="del" href="javascript:;" data-id="${res[index]['path']}">删</a></p> <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>`
+                        slides.push(element)
+                    }
+                    return slides;
+                }())
+            },
+            spaceBetween: 10,
+            lazy: {
+                loadPrevNext: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: swiper,
+            },
+            breakpoints: {
+                "@0.00": {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                },
 
-            var title, order;
-            getFlow();
-
-            function getFlow() {
-                $('.file_list').html('');
-                var flowhtml = flow.load({
-                    elem: '.file_list',
-                    isAuto: true,
-                    isLazyimg: true,
-                    done: function(page, next) {
-                        var lis = [];
-                        $.get("/pagelist", { 'title': title, 'order': order, 'page': page }, function(res) {
-                            $.each(res.data, function(index, item) {
-
-                                imghtml = '<li><a href="javascript:;" data-src="' + item['url'] + '" title="' + item['title'] + '"><h2>' + item['title'] + '</h2><div class="image"><img class="lazy" lay-src="/' + item['pic'] + '"><table class="data"><tr><th scope="row">枚数</th><td>' + item['count'] + '枚</td></tr><tr><td class="tag" colspan="2"><span>' + item['title'] + '</span></td></tr></table></div></a><p class="date">' + item['created_at'] + '&nbsp;<a class="del" href="javascript:;" data-id="' + item['id'] + '">删</a></p></li>';
-                                lis.push(imghtml);
+                "@1.00": {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                },
+            },
+        });
 
 
-                            });
-                            next(lis.join(''), page < res.last_page);
+        $(document).on('dblclick', '.swiper-slide a', function (event) {
+            const url = $(this).data('src');
+            const a = document.createElement("a");
+            a.href = url;
+            a.style.display = 'none';
+            a.target = '_blank';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+        });
 
-                        });
+        $(document).on('click', '.del', function (event) {
+            let that = $(this);
+            let path = that.data('id');
+            if (confirm('确实要删除' + path + '吗?')) {
+                let index = that.parent().parent().data('swiper-slide-index')
+                $.post('/list_del', { "id": path }, function (res) {
+                    if (confirm(res.msg)) {
+                        swiper.virtual.removeSlide(index);
+                        swiper2.virtual.removeSlide(index);
                     }
                 });
             }
-
-            $(document).on('dblclick','.file_list a',function(event){
-                const url = $(this).data('src');
-                const a = document.createElement("a");
-                a.href = url;
-                a.style.display = 'none';
-                a.target = '_blank';
-                a.click();
-                window.URL.revokeObjectURL(url);
-                a.remove();
-            });
-
-            $(document).on('click', '.del', function(event) {
-                if (confirm('确实要删除吗?')) {
-                    let that = $(this);
-                    let path = that.data('id');
-                    $.post('/delete', {"id":path}, function(res) {
-                        if(confirm(res.msg)){
-                            $.post('/confirm_del', {"id":path}, function(res) {
-                                alert(res.msg);
-                                that.parents('li').remove();
-                            });
-                        }
-                    });
-                }
-            });
-
-            $(document).on('click', '#scan', function(event) {
-                if (confirm('确实要扫描吗?')) {
-                    $.get('/scan', function(res) {
-                        alert(res.msg);
-                    });
-                }
-            });
-
-            $(document).on('click', '#go', function() {
-                title = $('#title').val();
-                order = $('#order').val();
-                getFlow();
-            });
         });
+
+        $(document).on('click', '#scan', function (event) {
+            if (confirm('需要开始生成缩略图吗?')) {
+                $.get('/scan', function (res) {
+                    alert(res.msg);
+                });
+            }
+        });
+        $(`#limit option[value='${limit}']`).attr("selected", "selected");
+        for (let p = 0; p < Math.trunc((total + limit - 1) / limit); p++) {
+            $('#page').append(`<option value='${p + 1}'>${p + 1}</option>`)
+        }
+        $(`#page option[value='${page}']`).attr("selected", "selected");
+        $(`#order option[value='${order}']`).attr("selected", "selected");
+
+        function formatDateTime(inputTime) {
+            var date = new Date(inputTime * 1000);
+            console.log(date)
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? "0" + m : m;
+            var d = date.getDate();
+            d = d < 10 ? "0" + d : d;
+            var h = date.getHours();
+            h = h < 10 ? "0" + h : h;
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            minute = minute < 10 ? "0" + minute : minute;
+            second = second < 10 ? "0" + second : second;
+            return y + "-" + m + "-" + d + " " + h + ":" + minute + ":" + second;
+        }
     </script>
+
 </body>
 
 </html>

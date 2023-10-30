@@ -10,6 +10,6 @@ services:
       - PGID=1000
     volumes:
       - 漫画目录:/workdir/contents
-      - data:/workdir/data
     ports:
       - 8181:18181
+      - 8182:18182

@@ -17,7 +17,7 @@
     <title>Comicsviewer</title>
 
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/swiper-bundle.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'h/css/swiper-bundle.min.css') }}" />
 
     <!-- Demo styles -->
     <style>
@@ -108,8 +108,8 @@
         <div class="swiper-wrapper">
             {% for v in img_list %}
             <div data-hash="slide{{ loop.index }}" class="swiper-slide">
-                <!-- Required swiper-lazy class and image source specified in data-src attribute -->
-                <div class="swiper-zoom-container"><img data-src="/{{ v }}" class="swiper-lazy" /></div>
+                <!-- Required swiper-lazy class and image source specified in src attribute -->
+                <div class="swiper-zoom-container"><img src="/{{ v }}" loading="lazy" class="swiper-lazy" /></div>
                 <!-- Preloader image -->
                 <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </div>
@@ -121,7 +121,7 @@
     </div>
 
     <!-- Swiper JS -->
-    <script type="text/javascript" src="{{ url_for('static', filename = 'js/swiper-bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'h/js/swiper-bundle.min.js') }}"></script>
 
     <!-- Initialize Swiper -->
     <script>

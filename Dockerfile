@@ -22,7 +22,7 @@ jpeg-dev \
 gcc \
 g++ && \
 python3 -m ensurepip && \
-pip3 install -i https://mirrors.cloud.tencent.com/pypi/simple click Flask importlib-metadata itsdangerous Jinja2 MarkupSafe Pillow PyMySQL waitress Werkzeug zipp && \
+pip3 install -i https://mirrors.cloud.tencent.com/pypi/simple click Flask flask_autoindex importlib-metadata itsdangerous Jinja2 MarkupSafe Pillow PyMySQL Werkzeug zipp && \
 apk del --purge \
 zlib-dev \
 jpeg-dev \
@@ -41,6 +41,7 @@ COPY shell/init.sh /
 COPY py-comicsviewer/ /workdir
 
 EXPOSE 18181
+EXPOSE 18182
 
 VOLUME /workdir/contents
 VOLUME /workdir/data

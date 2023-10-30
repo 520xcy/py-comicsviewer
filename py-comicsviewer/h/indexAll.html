@@ -15,7 +15,7 @@
     <meta name="referrer" content="never">
     <title>Comicsviewer</title>
     <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/swiper-bundle.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'h/css/swiper-bundle.min.css') }}" />
 
     <!-- Demo styles -->
     <style>
@@ -295,7 +295,7 @@
             <div class="swiper-slide" data-hash="slide{{ loop.index }}">
                 <a href="javascript:;" data-src="{{ v['url'] }}" title="{{ v['title'] }}">
                     <h2>{{ v['title'] }}</h2>
-                    <div class="image"><img class="swiper-lazy" data-src="/{{ v['pic'] }}" />
+                    <div class="image"><img loading="lazy" src="/{{ v['pic'] }}" />
                         <table class="data">
                             <tbody>
                                 <tr>
@@ -324,15 +324,15 @@
         <div class="swiper-wrapper">
             {% for v in res %}
             <div class="swiper-slide">
-                <img class="swiper-lazy" data-src="/{{ v['pic'] }}" />
+                <img loading="lazy" src="/{{ v['pic'] }}" />
                 <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </div>
             {% endfor %}
         </div>
     </div>
-    <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'h/js/jquery.min.js') }}"></script>
     <!-- Swiper JS -->
-    <script type="text/javascript" src="{{ url_for('static', filename = 'js/swiper-bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'h/js/swiper-bundle.min.js') }}"></script>
 
     <!-- Initialize Swiper -->
     <script>
