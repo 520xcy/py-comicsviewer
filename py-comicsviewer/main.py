@@ -10,7 +10,7 @@ from flask import Flask, render_template, request, url_for, jsonify, abort, Blue
 from datetime import timedelta
 from fun.log import get_logger
 # from fun.mysqlite import mysql
-from scan_img import scanimg
+# from scan_img import scanimg
 from preview import imageResize
 from multiprocessing import Process, Pool, RLock, freeze_support
 from flask_autoindex import AutoIndex
@@ -116,7 +116,7 @@ def delete_file_folder(src):
 
 # mkdir(os.path.join(BASE_PATH, 'data'))
 mkdir(BOOKDIR)
-SCAN = scanimg(BASE_PATH)
+# SCAN = scanimg(BASE_PATH)
 
 contents = Blueprint('contents', __name__,
                      static_folder=BOOKDIR)
@@ -318,15 +318,15 @@ def dirlist(path=''):
     else:
         return abort(404)
 
-@app.route('/scan', methods=['GET'])
-def scan():
-    log.critical('更新目录')
-    res = ''
-    try:
-        res = SCAN.run()
-        return jsonify({"msg": str(res)})
-    except Exception as e:
-        return jsonify({"msg": str(e)})
+# @app.route('/scan', methods=['GET'])
+# def scan():
+#     log.critical('更新目录')
+#     res = ''
+#     try:
+#         res = SCAN.run()
+#         return jsonify({"msg": str(res)})
+#     except Exception as e:
+#         return jsonify({"msg": str(e)})
 
 def checkFolder(src):
         if not '#' in src:
