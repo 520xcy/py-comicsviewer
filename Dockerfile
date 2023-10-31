@@ -44,6 +44,5 @@ EXPOSE 18181
 EXPOSE 18182
 
 VOLUME /workdir/contents
-VOLUME /workdir/data
 
 ENTRYPOINT ["/bin/sh", "/init.sh"]
