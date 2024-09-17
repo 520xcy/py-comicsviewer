@@ -295,7 +295,7 @@
             <div class="swiper-slide" data-hash="slide{{ loop.index }}">
                 <a href="javascript:;" data-src="{{ v['url'] }}" title="{{ v['title'] }}">
                     <h2>{{ v['title'] }}</h2>
-                    <div class="image"><img loading="lazy" src="/{{ v['pic'] }}" />
+                    <div class="image"><img loading="lazy" data-src="/{{ v['pic'] }}" class="swiper-lazy" />
                         <table class="data">
                             <tbody>
                                 <tr>
@@ -324,7 +324,7 @@
         <div class="swiper-wrapper">
             {% for v in res %}
             <div class="swiper-slide">
-                <img loading="lazy" src="/{{ v['pic'] }}" />
+                <img loading="lazy" data-src="/{{ v['pic'] }}" class="swiper-lazy" />
                 <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </div>
             {% endfor %}

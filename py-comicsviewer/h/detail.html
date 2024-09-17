@@ -109,7 +109,7 @@
             {% for v in img_list %}
             <div data-hash="slide{{ loop.index }}" class="swiper-slide">
                 <!-- Required swiper-lazy class and image source specified in src attribute -->
-                <div class="swiper-zoom-container"><img src="/{{ v }}" loading="lazy" class="swiper-lazy" /></div>
+                <div class="swiper-zoom-container"><img data-src="/{{ v }}" loading="lazy" class="swiper-lazy" /></div>
                 <!-- Preloader image -->
                 <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </div>

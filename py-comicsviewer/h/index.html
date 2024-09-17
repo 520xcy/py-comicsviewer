@@ -333,7 +333,7 @@
                 slides: (function () {
                     var slides = [];
                     for (let index = 0; index < res.length; index++) {
-                        const element = `<img loading="lazy" src="/${res[index]['preview']}" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>`
+                        const element = `<img loading="lazy" data-src="/${res[index]['preview']}" class="swiper-lazy" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>`
                         slides.push(element)
                     }
                     return slides;
@@ -370,7 +370,7 @@
                 slides: (function () {
                     var slides = [];
                     for (let index = 0; index < res.length; index++) {
-                        const element = `<a href="javascript:;" data-src="/${res[index]['url']}" title="${res[index]['title']}"> <h2>${res[index]['title']}</h2> <div class="image"> <img loading="lazy" src="/${res[index]['preview']}" /> <table class="data"> <tbody> <tr> <th scope="row">枚数</th><td>${res[index]['count']}枚</td></tr> <tr> <td class="tag" colspan="2"><span>${res[index]['title']}</span></td> </tr> </tbody> </table> </div> </a> <p class="date">${formatDateTime(res[index]['modified'])}&nbsp;<a class="del" href="javascript:;" data-id="${res[index]['path']}">删</a></p> <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>`
+                        const element = `<a href="javascript:;" data-src="/${res[index]['url']}" title="${res[index]['title']}"> <h2>${res[index]['title']}</h2> <div class="image"> <img class="swiper-lazy" loading="lazy" data-src="/${res[index]['preview']}" /><div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div><table class="data"> <tbody> <tr> <th scope="row">枚数</th><td>${res[index]['count']}枚</td></tr> <tr> <td class="tag" colspan="2"><span>${res[index]['title']}</span></td> </tr> </tbody> </table> </div> </a> <p class="date">${formatDateTime(res[index]['modified'])}&nbsp;<a class="del" href="javascript:;" data-id="${res[index]['path']}">删</a></p>`
                         slides.push(element)
                     }
                     return slides;
